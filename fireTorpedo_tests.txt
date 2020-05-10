@@ -1,0 +1,47 @@
+A specifikáció:
+
+/**
+  * Tries to fire the torpedo stores of the ship.
+  *
+  * @param firingMode how many torpedo bays to fire
+  * 	SINGLE: fires only one of the bays.
+  * 			- For the first time the primary store is fired.
+  * 			- To give some cooling time to the torpedo stores, torpedo stores are fired alternating.
+  * 			- But if the store next in line is empty, the ship tries to fire the other store.
+  * 			- If the fired store reports a failure, the ship does not try to fire the other one.
+  * 	ALL:	tries to fire both of the torpedo stores.
+  *
+  * @return whether at least one torpedo was fired successfully
+  */
+
+Tervezett tesztesetek:
+
+1.)
+	Azonosító: fireTorpedo_Single_1
+	Tesztelt elem: fireTorpedo metódus, mode: SINGLE
+	Tesztelés menete: Secondary store feltöltése 1 topredóval, primary store-ba 0 torpedó. Utána az aktuális ship-re meghívjuk a függvényt SINGLE firingMode-dal.
+	Elfogadási kritérium: visszatérési érték true (akkor is ki kell lõnie az 1 torpedót, ha az nem a primary store-ban van).
+
+2.)
+	Azonosító: fireTorpedo_Single_2
+	Tesztelt elem: fireTorpedo metódus, mode: SINGLE
+	Tesztelés menete: Primary és secondary store feltöltése 1-1 torpedóval. Utána az aktuális ship-re meghívjuk a függvényt SINGLE firingMode-dal.
+	Elfogadási kritérium: visszatérési érték true (1 torpedót ki kell lõnie, akár az egyik, akár a másik store-ból).
+
+3.)
+	Azonosító: fireTorpedo_Single_3
+	Tesztelt elem: fireTorpedo metódus, mode: SINGLE
+	Tesztelés menete: Primary és secondary store "feltöltése" 0-0 torpedóval. Utána az aktuális ship-re meghívjuk a függvényt SINGLE firingMode-dal.
+	Elfogadási kritérium: visszatérési érték false (nem tud torpedót kilõni, hiszen mindkét store üres).
+
+4.)
+	Azonosító: fireTorpedo_All_1
+	Tesztelt elem: fireTorpedo metódus, mode: ALL
+	Tesztelés menete: Primary és secondary store "feltöltése" 0-0 torpedóval. Utána az aktuális ship-re meghívjuk a függvényt ALL firingMode-dal.
+	Elfogadási kritérium: visszatérési érték false (nem tud torpedót kilõni, hiszen mindkét store üres).
+
+5.)
+	Azonosító: fireTorpedo_All_2
+	Tesztelt elem: fireTorpedo metódus, mode: ALL
+	Tesztelés menete: Primary és secondary store feltöltése 1-1 torpedóval. Utána az aktuális ship-re meghívjuk a függvényt ALL firingMode-dal.
+	Elfogadási kritérium: visszatérési érték true (az összes torpedót sikerült kilõnie), valamint mindkét store-ban 0 torpedó található (mivel mindet kilótte).
